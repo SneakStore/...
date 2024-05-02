@@ -1,0 +1,406 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Pixel Fegze</title>
+    <style>
+        /* Styles CSS pour la mise en page et le design */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff; /* Fond blanc */
+            color: #000; /* Couleur du texte noir */
+            padding: 20px;
+            text-align: center; /* Texte central */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .logo {
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            color: white;
+            padding: 0px 0px;
+            margin-top: -5px;
+        }
+
+        header {
+            background-color: #060B15; /* Couleur similaire à "ECRAN GG" */
+            color: #fff; /* Couleur du texte en blanc */
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between; /* Aligner les éléments à gauche et à droite */
+            align-items: center;
+            margin-bottom: 20px; /* Espacement en dessous de la barre de navigation */
+            margin-top: -25px;
+        }
+
+        footer {
+            background-color: #2C3850; /* Couleur similaire à "ECRAN GG" */
+            color: #fff; /* Couleur du texte en blanc */
+            padding: 10px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Aligner les éléments à gauche et à droite */
+            margin-top: -20px; /* Colle la barre de navigation en bas */
+        }
+
+        .barre-navigation {
+            display: flex;
+            align-items: center;
+        }
+
+        .barre-navigation a {
+            color: #fff; /* Couleur du texte blanc */
+            text-decoration: none; /* Pas de soulignement */
+            margin: 0 20px; /* Marge entre les éléments de navigation */
+            font-size: 18px; /* Taille de la police */
+            text-transform: uppercase; /* Texte en majuscule */
+            transition: box-shadow 0.3s; /* Transition douce pour l'ombre */
+            position: relative; /* Position relative pour déplacer l'ombre */
+        }
+
+        .barre-navigation a:hover {
+            box-shadow: 0 0 10px rgba(255,255,255,0.5); /* Ombre douce blanche au survol */
+        }
+
+        /* Ajoutez ce style pour l'effet de survol des liens */
+        .barre-navigation a:hover {
+            border-bottom: 2px solid white; /* Ajoute un trait blanc en dessous du lien */
+        }
+
+        #toggleSideNav {
+            width: 30px;
+            height: 20px;
+            top: -5px;
+            position: relative;
+            cursor: pointer;
+            margin-right: 5px; /* Décalage de 10px vers la droite */
+        }
+
+        #toggleSideNav div {
+            width: 100%;
+            height: 3px;
+            background-color: #fff;
+            margin: 4px 0;
+        }
+
+        #sideNav {
+            background-color: rgba(44, 56, 80, 0.9); /* Fond sombre semi-transparent */
+            color: #fff;
+            width: 250px; /* Augmenter la largeur de la barre latérale */
+            position: fixed;
+            top: 0;
+            left: -250px; /* Changer la position initiale pour cacher la barre latérale */
+            bottom: 0;
+            padding-top: 50px;
+            z-index: 999; /* Mettre la barre latérale au premier plan */
+            transition: left 0.3s ease;
+            overflow-y: auto; /* Permet de déplacer le contenu de la barre latérale si elle dépasse */
+        }
+
+        #closeBtn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000; /* S'assurer que le bouton de fermeture est au-dessus du fond sombre */
+        }
+
+        .barre-latérale a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 20px 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .barre-latérale a:hover {
+            background-color: #154360;
+        }
+
+        /* Style pour les catégories de produits */
+        .categorie {
+            margin-bottom: 40px;
+            text-align: left; /* Aligner le texte à gauche */
+            transition: box-shadow 0.3s; /* Transition douce pour l'ombre */
+            padding: 20px; /* Ajout de marge intérieure */
+        }
+
+        .categorie:hover {
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Ombre douce noire au survol */
+        }
+
+        .categorie-titre {
+            font-size: 21px;
+            margin-bottom: 10px;
+            text-align: left; /* Aligner le titre à gauche */
+            margin-left: 10px; /* Marge à gauche */
+        }
+
+        .produits {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .produit {
+            width: calc(25% - 20px); /* 25% moins la marge pour 4 éléments par ligne */
+            margin: 10px;
+            text-align: center;
+        }
+
+        .produit img {
+            width: 80%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .produit h3 {
+            font-size: 16px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Pixel Fegze</div>
+    <div class="barre-navigation">
+        <input id="searchInput" type="text" placeholder="Rechercher..." style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; width: 200px; margin-right: 10px;">
+
+        <button onclick="filterCategories()" style="background-color: #2C3850; color: #fff; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Rechercher</button>
+
+    </div>
+    <div class="barre-navigation">
+        <a href="#">Accueil</a>
+        <a href="#">Produits</a>
+        <a href="#">Actualités</a>
+        <a href="#">Contact</a>
+    </div>
+</header>
+
+<footer>
+    <div class="barre-navigation">
+        <div id="toggleSideNav">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <a href="#">Service client</a>
+        <a href="#">Livraison et retours</a>
+    </div>
+</footer>
+
+<div class="barre-latérale" id="sideNav">
+    <div id="closeBtn">&times;</div>
+    <a href="#">Tendances</a>
+    <a href="#">Meilleures ventes</a>
+    <a href="#">Dernières Nouveautés</a>
+    <a href="#">Baromètre des ventes</a>
+    <a href="#">Contenu numérique et appareils</a>
+    <a href="#">Amazon Prime Video</a>
+    <a href="#">Amazon Music</a>
+    <a href="#">Echo, Alexa et Maison connectée</a>
+    <a href="#">Amazon Fire TV</a>
+    <a href="#">Liseuses Kindle et ebooks</a>
+    <a href="#">Livres audio Audible</a>
+    <a href="#">Appstore pour Android</a>
+    <a href="#">Choisir une catégorie</a>
+    <a href="#">Livres</a>
+    <a href="#">Musique, DVD et Blu-ray</a>
+    <a href="#">Jeux vidéo et consoles</a>
+</div>
+
+<div class="categorie" id="casques" onclick="window.location.href='URL_PAGE_CATEGORIE';" style="cursor: pointer;">
+    <h2 class="categorie-titre">Casques</h2>
+    <div class="produits">
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/61i+QbshAFL._AC_UL320_.jpg" alt="">
+            <h3>HyperX Cloud Alpha Binaural Bandeau Noir</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/71+m4Q7iU4L._AC_UL320_.jpg" alt="">
+            <h3>Corsair HS80 Max Wireless</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/71kY+ry+PwL._AC_UL320_.jpg" alt="">
+            <h3>Razer BlackShark V2 X</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/41SKalG200L._AC_UF480,480_SR480,480_.jpg" alt="">
+            <h3>roccat elo 7.1 USB</h3>
+        </div>
+    </div>
+</div>
+<div class="categorie" id="souris" onclick="window.location.href='URL_PAGE_CATEGORIE';" style="cursor: pointer;">
+    <h2 class="categorie-titre">souris</h2>
+    <div class="produits">
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/5138fK1qKuL._AC_UL320_.jpg" alt="">
+            <h3>Logitech G703 LIGHTSPEED</h3>
+        </div>
+        <div class="produit">
+            <img src="https://tse3.mm.bing.net/th?id=OIP.58YC-9ejjFGjva3soaFirAHaHa&pid=Api&P=0&h=180" alt="">
+            <h3>Razer DeathAdder V3 Pro + Razer HyperPolling Wireless Dongle</h3>
+        </div>
+        <div class="produit">
+            <img src="https://tse2.mm.bing.net/th?id=OIP.KGjgrDjw86Vb28UKcPWJ0wHaHa&pid=Api&P=0&h=180" alt="">
+            <h3>Apple Magic Mouse 2</h3>
+        </div>
+        <div class="produit">
+            <img src="https://tse3.mm.bing.net/th?id=OIP.q9UZrkQCpesiPmUnpn5mvwHaGD&pid=Api&P=0&h=180" alt="">
+            <h3>SteelSeries Aerox 3 Wireless Ghost (2022)</h3>
+        </div>
+    </div>
+</div>
+<div class="categorie" id="clavier" onclick="window.location.href='URL_PAGE_CATEGORIE';" style="cursor: pointer;">
+    <h2 class="categorie-titre">clavier</h2>
+    <div class="produits">
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/71OtnxtzZPL._AC_UL320_.jpg" alt="">
+            <h3>SteelSeries Clavier HyperMagnetic gaming Apex Pro TKL Wireless</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/717EVH373XL._AC_UL320_.jpg" alt="">
+            <h3>Razer Huntsman Mini analogique</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/714V0+Ge1ML._AC_UL320_.jpg" alt=" ">
+            <h3>BlueElement Keyboard for Mac</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/71EXc-hL+uL._AC_UL320_.jpg" alt=" ">
+            <h3>Turtle Beach Vulcan II</h3>
+        </div>
+    </div>
+</div>
+<div class="categorie" id="vetment" onclick="window.location.href='URL_PAGE_CATEGORIE';" style="cursor: pointer;">
+    <h2 class="categorie-titre">vetment</h2>
+    <div class="produits">
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/618FhFPg8+L._AC_UL320_.jpg" alt="">
+            <h3>air force one</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/61kkYYK39dL._AC_UL320_.jpg" alt="">
+            <h3>BOSS Paddy Homme</h3>
+        </div>
+        <div class="produit">
+            <img src="https://tse1.mm.bing.net/th?id=OIP.KoUsSAspo-02oC25OMSzTgHaHa&pid=Api&P=0&h=180" alt=" ">
+            <h3>Brandit Pure Vintage Homme Cargo Pantalon</h3>
+        </div>
+        <div class="produit">
+            <img src="https://tse4.mm.bing.net/th?id=OIP.W309GyG120A-FnqJ9ewtsQHaHa&pid=Api&P=0&h=180" alt=" ">
+            <h3>Nike Rpl Park20 Sdf Jacket Homme</h3>
+        </div>
+    </div>
+</div>
+  <div class="categorie" id="robot et cuisine" onclick="window.location.href='URL_PAGE_CATEGORIE';" style="cursor: pointer;">
+    <h2 class="categorie-titre">robot et cuisine</h2>
+    <div class="produits">
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/51bl9P3BgOL._AC_UL320_.jpg" alt="">
+            <h3>Mambo 11090 Havane</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/618MOV0IBkL._AC_UL320_.jpg" alt="">
+            <h3>Philips 3000 Series Blender</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/81SpLwbtCNL._AC_UL320_.jpg" alt=" ">
+            <h3>HYUNDAI Robot pâtissier</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/61isaXJh2rL._AC_UL320_.jpg" alt=" ">
+            <h3>Tefal Oleo Clean Friteuse</h3>
+        </div>
+    </div>
+</div>
+  <div class="categorie" id="machine a cafe" onclick="window.location.href='URL_PAGE_CATEGORIE';" style="cursor: pointer;">
+    <h2 class="categorie-titre">machine a cafe</h2>
+    <div class="produits">
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/615+DeFwLtL._AC_UL320_.jpg" alt="">
+            <h3>Philips Série 5400 Machine Expresso</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/713sthqi1GL._AC_UL320_.jpg" alt="">
+            <h3>De’Longhi 203550 Inissia Cafetière à Capsules Nespresso</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/61tNO2VdJeL._AC_UL320_.jpg" alt=" ">
+            <h3>Nescafé Dolce Gusto Krups</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/8134Lx+OduL._AC_UL320_.jpg" alt=" ">
+            <h3>Philips L'Or Barista</h3>
+        </div>
+    </div>
+</div>
+<div class="categorie" id="carte cadeau" onclick="window.location.href='URL_PAGE_CATEGORIE';" style="cursor: pointer;">
+    <h2 class="categorie-titre">carte cadeau</h2>
+    <div class="produits">
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/615mWTW4msL._AC_UL320_.jpg" alt="">
+            <h3>carte cadeau playstation</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/61fmqtYF-QL._AC_UL320_.jpg" alt="">
+            <h3>carte cadeau xbox</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/715vMsIhO1L._AC_UL320_.jpg" alt=" ">
+            <h3>carte cadeau roblox</h3>
+        </div>
+        <div class="produit">
+            <img src="https://m.media-amazon.com/images/I/41CXJ4ntUvL._AC_UL320_.jpg" alt=" ">
+            <h3>Twitch Cartes cadeaux</h3>
+        </div>
+    </div>
+</div>
+<script>
+    var toggleSideNav = document.getElementById('toggleSideNav');
+    var sideNav = document.getElementById('sideNav');
+    var closeBtn = document.getElementById('closeBtn');
+
+    // Afficher la barre latérale lors du clic sur le bouton avec les trois lignes
+    toggleSideNav.addEventListener('click', function() {
+        sideNav.style.left = '0';
+        document.body.style.overflow = 'hidden'; // Empêche le défilement de la page lorsque la barre latérale est 
+
+affichée
+    });
+
+    // Masquer la barre latérale lors du clic sur le bouton de fermeture
+    closeBtn.addEventListener('click', function() {
+        sideNav.style.left = '-250px'; // Changer la valeur pour masquer complètement la barre latérale
+        document.body.style.overflow = ''; // Active à nouveau le défilement de la page
+    });
+
+    // Masquer la barre latérale lors du clic sur une autre partie de la page
+    document.addEventListener('click', function(event) {
+        if (!sideNav.contains(event.target) && event.target !== toggleSideNav) {
+            sideNav.style.left = '-250px'; // Changer la valeur pour masquer complètement la barre latérale
+            document.body.style.overflow = ''; // Active à nouveau le défilement de la page
+        }
+    });
+    function filterCategories() {
+        var input, filter, categories, category, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        categories = document.getElementsByClassName('categorie');
+        for (i = 0; i < categories.length; i++) {
+            category = categories[i];
+            txtValue = category.textContent || category.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                category.style.display = '';
+            } else {
+                category.style.display = 'none';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
